@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 
-import "./Scrollbar.css";
+import './Scrollbar.css';
 
 interface ScrollbarProps {
   children?: React.ReactNode;
@@ -26,7 +26,7 @@ const getScrollBarWidth: () => number = () => {
   outer.appendChild(inner);
 
   const widthWithScroll = inner.offsetWidth;
-  
+
   if (outer.parentNode) {
     outer.parentNode.removeChild(outer);
   }
@@ -34,26 +34,43 @@ const getScrollBarWidth: () => number = () => {
   return widthNoScroll - widthWithScroll;
 };
 
-export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, outerRef: outerRefProps, innerRef: innerRefProps }) => {
-  const outerRef = useRef<HTMLDivElement>(outerRefProps ? outerRefProps.current : null);
-  const innerRef = useRef<HTMLDivElement>(innerRefProps ? innerRefProps.current : null);
-  const outerRect = useRef<{height: number, width: number}>({ height: 0, width: 0 });
-  const innerRect = useRef<{height: number, width: number}>({ height: 0, width: 0 });
+export const Scrollbar: React.FC<ScrollbarProps> = ({
+  children,
+  width,
+  height,
+  outerRef: outerRefProps,
+  innerRef: innerRefProps,
+}) => {
+  const outerRef = useRef<HTMLDivElement>(
+    outerRefProps ? outerRefProps.current : null,
+  );
+  const innerRef = useRef<HTMLDivElement>(
+    innerRefProps ? innerRefProps.current : null,
+  );
+  const outerRect = useRef<{ height: number; width: number }>({
+    height: 0,
+    width: 0,
+  });
+  const innerRect = useRef<{ height: number; width: number }>({
+    height: 0,
+    width: 0,
+  });
 
   const scaleY = useRef<number>(0);
   const [translateY, setTranslateY] = useState<number | string>(0);
 
-  const [scrollHeight, setScrollHeight] = useState<number| string>(0);
+  const [scrollHeight, setScrollHeight] = useState<number | string>(0);
 
   const verticalMouseDown = useRef<boolean>(false);
   const startY = useRef<number>(0);
   const startScrollTop = useRef<number>(0);
 
-  const [shouldShowVerticval, setShouldShowVerticval] = useState<boolean>(false);
+  const [shouldShowVerticval, setShouldShowVerticval] =
+    useState<boolean>(false);
   const [marginX, setMarginX] = useState<number>(0);
   const scrollBarWidth = useRef<number>(0);
 
-  const scaleX = useRef<number>(0); 
+  const scaleX = useRef<number>(0);
   const [translateX, setTranslateX] = useState<number | string>(0);
   const [scrollWidth, setScrollWidth] = useState<number | string>(0);
   const horizontalMouseDown = useRef(false);
@@ -62,11 +79,11 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
   const [shouldShowHorizontal, setShouldShowHorizontal] = useState(false);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const {height} = outerRect.current;
-    const y = e.currentTarget.scrollTop / height * 100 + '%';
+    const { height } = outerRect.current;
+    const y = (e.currentTarget.scrollTop / height) * 100 + '%';
     setTranslateY(y);
 
-    const x = e.currentTarget.scrollLeft / (width as number) * 100 + '%';
+    const x = (e.currentTarget.scrollLeft / (width as number)) * 100 + '%';
     setTranslateX(x);
   };
 
@@ -77,7 +94,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
     const { height: innerH } = innerRect.current;
     // 获取点击时，在滚动条上的位置
     const offset = e.clientY - e.currentTarget.getBoundingClientRect().top;
-    const scrollTop = offset / outerH * innerH - outerH / 2;
+    const scrollTop = (offset / outerH) * innerH - outerH / 2;
     if (outerRef.current) {
       outerRef.current.scrollTop = scrollTop;
     }
@@ -104,7 +121,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
     const { width: outerW } = outerRect.current;
     const { width: innerW } = innerRect.current;
     const offset = e.clientX - e.currentTarget.getBoundingClientRect().left;
-    const scrollLeft = offset / outerW * innerW - outerW / 2;
+    const scrollLeft = (offset / outerW) * innerW - outerW / 2;
     if (outerRef.current) {
       outerRef.current.scrollLeft = scrollLeft;
     }
@@ -129,7 +146,8 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
     if (verticalMouseDown.current) {
       const offsetY = e.clientY - startY.current;
       if (outerRef.current) {
-        outerRef.current.scrollTop = startScrollTop.current + offsetY * scaleY.current;
+        outerRef.current.scrollTop =
+          startScrollTop.current + offsetY * scaleY.current;
       }
     }
   };
@@ -149,20 +167,32 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
     const outer = outerRef.current;
     const inner = innerRef.current;
     if (outer && inner) {
-        outerRect.current = { height: outer.clientHeight, width: outer.clientWidth };
-        innerRect.current = { height: inner.clientHeight, width: inner.clientWidth };
-      
-      // 使用百分比计算滚动条的宽度和高度
-      setScrollHeight(outer.clientHeight / inner.clientHeight * 100 + '%');
-      const thumbHeight = outer.clientHeight / inner.clientHeight * outer.clientHeight;
-      scaleY.current = (innerRect.current.height - outerRect.current.height) / (outerRect.current.height - thumbHeight);
+      outerRect.current = {
+        height: outer.clientHeight,
+        width: outer.clientWidth,
+      };
+      innerRect.current = {
+        height: inner.clientHeight,
+        width: inner.clientWidth,
+      };
 
-      setScrollWidth(outer.clientWidth / inner.clientWidth * 100 + '%');
-      const thumbWidth = outer.clientWidth / inner.clientWidth * outer.clientWidth;
-      scaleX.current = (innerRect.current.width - outerRect.current.width) / (outerRect.current.width - thumbWidth);
+      // 使用百分比计算滚动条的宽度和高度
+      setScrollHeight((outer.clientHeight / inner.clientHeight) * 100 + '%');
+      const thumbHeight =
+        (outer.clientHeight / inner.clientHeight) * outer.clientHeight;
+      scaleY.current =
+        (innerRect.current.height - outerRect.current.height) /
+        (outerRect.current.height - thumbHeight);
+
+      setScrollWidth((outer.clientWidth / inner.clientWidth) * 100 + '%');
+      const thumbWidth =
+        (outer.clientWidth / inner.clientWidth) * outer.clientWidth;
+      scaleX.current =
+        (innerRect.current.width - outerRect.current.width) /
+        (outerRect.current.width - thumbWidth);
     }
   }, [outerRef.current, innerRef.current]);
- 
+
   useEffect(() => {
     const inner = innerRef.current;
     if (inner) {
@@ -190,30 +220,48 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({ children, width, height, o
   }, []);
 
   return (
-    <div className="scrollbar-container" style={{height, width}}>
-      {
-        shouldShowVerticval && (
-          <div className="scrollbar-vertical-track" onMouseDown={handleVerticalTrackMouseDown}>
-            <div className="vertical-thumb" onMouseDown={handleVerticalThumbMouseDown} style={{ height: scrollHeight, transform: `translateY(${translateY})` }} />
-          </div>
-        )
-      }
+    <div className="scrollbar-container" style={{ height, width }}>
+      {shouldShowVerticval && (
+        <div
+          className="scrollbar-vertical-track"
+          onMouseDown={handleVerticalTrackMouseDown}
+        >
+          <div
+            className="vertical-thumb"
+            onMouseDown={handleVerticalThumbMouseDown}
+            style={{
+              height: scrollHeight,
+              transform: `translateY(${translateY})`,
+            }}
+          />
+        </div>
+      )}
 
-      {
-        shouldShowHorizontal && (
-          <div className="scrollbar-horizontal-track" onMouseDown={handleHorizontalTrackMouseDown}>
-            <div className="horizontal-thumb" onMouseDown={handleHorizontalThumbMouseDown} style={{ width: scrollWidth, transform: `translateX(${translateX})` }} />
-          </div>
-        )
-      }
-      
-      <div 
-        ref={outerRefProps || outerRef} 
-        className="scrollbar-outer" 
-        onScroll={handleScroll} 
-        style={{ 
+      {shouldShowHorizontal && (
+        <div
+          className="scrollbar-horizontal-track"
+          onMouseDown={handleHorizontalTrackMouseDown}
+        >
+          <div
+            className="horizontal-thumb"
+            onMouseDown={handleHorizontalThumbMouseDown}
+            style={{
+              width: scrollWidth,
+              transform: `translateX(${translateX})`,
+            }}
+          />
+        </div>
+      )}
+
+      <div
+        ref={outerRefProps || outerRef}
+        className="scrollbar-outer"
+        onScroll={handleScroll}
+        style={{
           marginRight: shouldShowVerticval ? `-${marginX}px` : 0,
-          height: shouldShowHorizontal ? `${height as number + marginX}px` : height,
+          height: shouldShowHorizontal
+            ? `${(height as number) + marginX}px`
+            : height,
         }}
       >
         <div className="scrollbar-inner" ref={innerRefProps || innerRef}>
