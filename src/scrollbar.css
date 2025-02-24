@@ -18,6 +18,11 @@
   transition: opacity 0.25s;
 }
 
+[dir="rtl"] .scrollbar-vertical-track {
+  left: 0;
+  right: initial;
+}
+
 .vertical-thumb {
   cursor: pointer;
   width: 8px;

@@ -17,7 +17,8 @@
     "url": "https://github.com/neilning-xc/common-react-scrollbar"
   },
   "scripts": {
-    "dev": "vite serve example -c example/vite.config.js",
+    "dev": "concurrently \"npm run start\" \"npm run serve\"",
+    "serve": "vite serve example -c example/vite.config.js",
     "build": "rollup -c",
     "start": "rollup -c --watch",
     "test": "jest",
@@ -48,6 +49,7 @@
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
     "@vitejs/plugin-react": "4.3.4",
+    "concurrently": "9.1.2",
     "husky": "9.1.7",
     "identity-obj-proxy": "3.0.0",
     "jest": "29.7.0",

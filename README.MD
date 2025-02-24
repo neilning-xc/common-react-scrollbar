@@ -15,6 +15,7 @@ A common React scrollbar component that supports both vertical and horizontal sc
 ```tsx
 import React from 'react';
 import { Scrollbar } from './Scrollbar';
+import 'common-react-scrollbar/dist/index.css';
 
 const App = () => {
   return (
@@ -40,7 +41,7 @@ npm install common-react-scrollbar
 ```tsx
 import React from 'react';
 import { Scrollbar } from 'common-react-scrollbar';
-import 'common-react-scrollbar/dist/Scrollbar.css';
+import 'common-react-scrollbar/dist/index.css';
 
 const App = () => {
   return (

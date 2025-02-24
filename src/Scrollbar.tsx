@@ -8,6 +8,7 @@ interface ScrollbarProps {
   width?: number;
   outerRef?: React.RefObject<HTMLDivElement | null>;
   innerRef?: React.RefObject<HTMLDivElement | null>;
+  dir: 'ltr' | 'rtl';
 }
 
 const getScrollBarWidth: () => number = () => {
@@ -40,6 +41,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   height,
   outerRef: outerRefProps,
   innerRef: innerRefProps,
+  dir = 'ltr',
 }) => {
   const outerRef = useRef<HTMLDivElement>(
     outerRefProps ? outerRefProps.current : null,
@@ -77,6 +79,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   const startX = useRef<number>(0);
   const startScrollLeft = useRef<number>(0);
   const [shouldShowHorizontal, setShouldShowHorizontal] = useState(false);
+  const isRtl = dir === 'rtl';
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { height } = outerRect.current;
@@ -120,10 +123,15 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
     e.stopPropagation();
     const { width: outerW } = outerRect.current;
     const { width: innerW } = innerRect.current;
-    const offset = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    let offset;
+    if (isRtl) {
+      offset = e.currentTarget.getBoundingClientRect().right - e.clientX;
+    } else {
+      offset = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    }
     const scrollLeft = (offset / outerW) * innerW - outerW / 2;
     if (outerRef.current) {
-      outerRef.current.scrollLeft = scrollLeft;
+      outerRef.current.scrollLeft = isRtl ? -scrollLeft : scrollLeft;
     }
   };
 
@@ -150,6 +158,14 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
           startScrollTop.current + offsetY * scaleY.current;
       }
     }
+
+    if (horizontalMouseDown.current) {
+      const offsetX = e.clientX - startX.current;
+      if (outerRef.current) {
+        outerRef.current.scrollLeft =
+          startScrollLeft.current + offsetX * scaleX.current;
+      }
+    }
   };
 
   const handleMouseUp = (e: MouseEvent) => {
@@ -157,6 +173,13 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
       verticalMouseDown.current = false;
       startY.current = 0;
       // 结束后移除事件监听，防止其他bug产生
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    }
+
+    if (horizontalMouseDown.current) {
+      horizontalMouseDown.current = false;
+      startX.current = 0;
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     }
@@ -220,7 +243,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   }, []);
 
   return (
-    <div className="scrollbar-container" style={{ height, width }}>
+    <div className="scrollbar-container" dir={dir} style={{ height, width }}>
       {shouldShowVerticval && (
         <div
           className="scrollbar-vertical-track"
@@ -258,7 +281,9 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
         className="scrollbar-outer"
         onScroll={handleScroll}
         style={{
-          marginRight: shouldShowVerticval ? `-${marginX}px` : 0,
+          [isRtl ? 'marginLeft' : 'marginRight']: shouldShowVerticval
+            ? `-${marginX}px`
+            : 0,
           height: shouldShowHorizontal
             ? `${(height as number) + marginX}px`
             : height,
