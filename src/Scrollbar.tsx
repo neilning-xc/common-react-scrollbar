@@ -8,7 +8,7 @@ interface ScrollbarProps {
   width?: number;
   outerRef?: React.RefObject<HTMLDivElement | null>;
   innerRef?: React.RefObject<HTMLDivElement | null>;
-  dir: 'ltr' | 'rtl';
+  dir?: 'ltr' | 'rtl';
 }
 
 const getScrollBarWidth: () => number = () => {
@@ -41,7 +41,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   height,
   outerRef: outerRefProps,
   innerRef: innerRefProps,
-  dir = 'ltr',
+  dir,
 }) => {
   const outerRef = useRef<HTMLDivElement>(
     outerRefProps ? outerRefProps.current : null,

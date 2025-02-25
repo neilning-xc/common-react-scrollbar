@@ -1,3 +1,5 @@
+[![Node.js Package](https://github.com/neilning-xc/common-react-scrollbar/actions/workflows/npm-publish.yml/badge.svg?branch=master)](https://github.com/neilning-xc/common-react-scrollbar/actions/workflows/npm-publish.yml)
+
 # Common React Scrollbar Component
 
 ## Description

@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { Scrollbar } from '../src/Scrollbar';
 
-const renderScrollbar = (width: number | undefined, height: number | undefined, clientWidth: number, clientHeight: number) => {
+const renderScrollbar = (width: number | undefined, height: number | undefined, clientWidth: number, clientHeight: number, dir?: 'rtl' | 'ltr') => {
   const mockInnerDiv = document.createElement('div');
   jest.spyOn(mockInnerDiv, 'clientHeight', 'get').mockReturnValue(clientHeight);
   jest.spyOn(mockInnerDiv, 'clientWidth', 'get').mockReturnValue(clientWidth);
@@ -16,7 +16,7 @@ const renderScrollbar = (width: number | undefined, height: number | undefined, 
   const outerRef = { current: mockOuterDiv };
 
   return render(
-    <Scrollbar width={width} height={height} outerRef={outerRef} innerRef={innerRef}>
+    <Scrollbar dir={dir} width={width} height={height} outerRef={outerRef} innerRef={innerRef}>
       <div style={{ width: clientHeight, height: clientHeight }} ></div>
     </Scrollbar>
   );
@@ -87,5 +87,40 @@ describe('Scrollbar', () => {
     expect(hScrollbar).toBe(null);
     expect(vThumb).toBe(null);
     expect(hThumb).not.toBeInTheDocument();
+  });
+});
+
+describe('Scrollbar rtl | ltr', () => {
+  it('scrollbar without dir', () => {
+    const { container, debug } = render(
+      <Scrollbar width={200} height={200}>
+        <div style={{ width: 500, height: 1000 }} ></div>
+      </Scrollbar>
+    );
+
+    const scrollCon = container.querySelector('.scrollbar-container');
+    expect(scrollCon?.getAttribute('dir')).toBe(null);
+  });
+  
+  it('scrollbar with dir=ltr', () => {
+    const { container } = render(
+      <Scrollbar width={200} height={200} dir='ltr'>
+        <div style={{ width: 500, height: 1000 }} ></div>
+      </Scrollbar>
+    );
+
+    const scrollCon = container.querySelector('.scrollbar-container');
+    expect(scrollCon?.getAttribute('dir')).toBe('ltr');
+  });
+
+  it('scrollbar with dir=rtl', () => {
+    const { container } = render(
+      <Scrollbar width={200} height={200} dir='rtl'>
+        <div style={{ width: 500, height: 1000 }} ></div>
+      </Scrollbar>
+    );
+
+    const scrollCon = container.querySelector('.scrollbar-container');
+    expect(scrollCon?.getAttribute('dir')).toBe('rtl');
   });
 });
