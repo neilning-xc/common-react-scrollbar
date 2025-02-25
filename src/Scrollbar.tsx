@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-import './Scrollbar.css';
+import './scrollbar.css';
 
 interface ScrollbarProps {
   children?: React.ReactNode;
