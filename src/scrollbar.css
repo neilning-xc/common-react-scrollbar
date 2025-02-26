@@ -13,7 +13,6 @@
   top: 0;
   height: 100%;
   width: 8px;
-  background-color: #ff9d0036;
   opacity: 0;
   transition: opacity 0.25s;
 }
@@ -27,7 +26,7 @@
   cursor: pointer;
   width: 8px;
   border-radius: 4px;
-  background: gray;
+  background: #ced2d9;
 }
 
 .scrollbar-container:hover .scrollbar-horizontal-track  {
@@ -40,7 +39,6 @@
   bottom: 0;
   height: 8px;
   width: 100%;
-  background-color: #ff9d0036;
   opacity: 0;
   transition: opacity 0.25s;
 }
@@ -49,7 +47,7 @@
   cursor: pointer;
   height: 8px;
   border-radius: 4px;
-  background: gray;
+  background: #ced2d9;
 }
 
 .scrollbar-outer {

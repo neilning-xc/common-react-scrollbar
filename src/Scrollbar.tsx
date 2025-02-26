@@ -90,12 +90,12 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
     setTranslateX(x);
   };
 
-  // 3. 滑轨点击事件
+  // click event on the track
   const handleVerticalTrackMouseDown = (e: React.MouseEvent) => {
     e.stopPropagation();
     const { height: outerH } = outerRect.current;
     const { height: innerH } = innerRect.current;
-    // 获取点击时，在滚动条上的位置
+    // get the offset of the click point from the top of the track
     const offset = e.clientY - e.currentTarget.getBoundingClientRect().top;
     const scrollTop = (offset / outerH) * innerH - outerH / 2;
     if (outerRef.current) {
@@ -103,18 +103,18 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
     }
   };
 
-  // 4.滑块拖拽事件
+  // take the thumb and move it
   const handleVerticalThumbMouseDown = (e: React.MouseEvent) => {
-    // 阻止默认行为, 防止选中文本
+    // prevent default behavior to prevent text selection
     e.preventDefault();
-    // 阻止事件冒泡, 防止触发滑轨点击事件
+    // prevent event bubbling to prevent triggering the track click event
     e.stopPropagation();
     verticalMouseDown.current = true;
     startY.current = e.clientY;
     if (outerRef.current) {
       startScrollTop.current = outerRef.current.scrollTop;
     }
-    // 在window上增加move事件，鼠标移动出滑轨的区域仍然有效
+    // add move event on window, the mouse move out of the track area, it still works
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
   };
@@ -136,9 +136,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   };
 
   const handleHorizontalThumbMouseDown = (e: React.MouseEvent) => {
-    // 阻止默认行为, 防止选中文本
     e.preventDefault();
-    // 阻止事件冒泡, 防止触发滑轨点击事件
     e.stopPropagation();
     horizontalMouseDown.current = true;
     startX.current = e.clientX;
@@ -172,7 +170,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
     if (verticalMouseDown.current) {
       verticalMouseDown.current = false;
       startY.current = 0;
-      // 结束后移除事件监听，防止其他bug产生
+      // remove event listener after finish to prevent other bugs
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     }
@@ -186,7 +184,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
   };
 
   useEffect(() => {
-    // 1. 计算垂直滑块的高度
+    // calculate the height of the thumb
     const outer = outerRef.current;
     const inner = innerRef.current;
     if (outer && inner) {
@@ -199,7 +197,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
         width: inner.clientWidth,
       };
 
-      // 使用百分比计算滚动条的宽度和高度
+      // calculate the height and width of the thumb with percentage
       setScrollHeight((outer.clientHeight / inner.clientHeight) * 100 + '%');
       const thumbHeight =
         (outer.clientHeight / inner.clientHeight) * outer.clientHeight;

@@ -11,6 +11,7 @@ A common React scrollbar component that supports both vertical and horizontal sc
 - `children` (React.ReactNode): The content inside the scrollbar.
 - `height` (number): The height of the scrollbar container.
 - `width` (number): The width of the scrollbar container.
+- `dir` ('rtl' | 'ltr'): The direction of the scrollbar. Default is 'ltr'. Compatible with right-to-left languages like Arabic and Hebrew.
 
 ## Example
 
