@@ -12,7 +12,7 @@
   right: 0;
   top: 0;
   height: 100%;
-  width: 8px;
+  width: 4px;
   opacity: 0;
   transition: opacity 0.25s;
 }
@@ -24,7 +24,7 @@
 
 .vertical-thumb {
   cursor: pointer;
-  width: 8px;
+  width: 4px;
   border-radius: 4px;
   background: #ced2d9;
 }
@@ -37,7 +37,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 8px;
+  height: 4px;
   width: 100%;
   opacity: 0;
   transition: opacity 0.25s;
@@ -45,13 +45,14 @@
 
 .horizontal-thumb {
   cursor: pointer;
-  height: 8px;
+  height: 4px;
   border-radius: 4px;
   background: #ced2d9;
 }
 
 .scrollbar-outer {
   height: 100%;
+  width: 100%;
   overflow: auto;
   /* 在元素上滚动时避免外部容器滚动 */
   overscroll-behavior: contain;

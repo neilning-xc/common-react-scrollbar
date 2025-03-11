@@ -5,9 +5,35 @@ function App() {
   return (
     <div className='app'>
       <div>
-        <h2>rtl</h2>
-        <Scroll width={400} height={500} >
-          <div style={{ width: 1200, height: 1200, background: 'linear-gradient(135deg, #646cff, #f6ff64)' }}></div>
+        <h2>ltr</h2>
+        <Scroll width={400} height={200} >
+          <p style={{ wordBreak: 'break-all', margin: 0, background: 'rgb(204 204 204 / 18%)', width: 800 }}>
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text  
+            test text test text  test text  test text  test text  test text  test text  test text
+          </p>
         </Scroll>
 
         <h2>rtl</h2>

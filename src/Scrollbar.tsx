@@ -212,7 +212,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
         (innerRect.current.width - outerRect.current.width) /
         (outerRect.current.width - thumbWidth);
     }
-  }, [outerRef.current, innerRef.current]);
+  }, [outerRef.current, innerRef.current, width, height]);
 
   useEffect(() => {
     const inner = innerRef.current;
@@ -233,7 +233,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
         setShouldShowHorizontal(true);
       }
     }
-  }, [innerRef.current, height]);
+  }, [innerRef.current, height, width]);
 
   useEffect(() => {
     scrollBarWidth.current = getScrollBarWidth();

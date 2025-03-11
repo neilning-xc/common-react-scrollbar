@@ -77,8 +77,7 @@ describe('Scrollbar', () => {
   });
 
   it('does not show any scrollbar', () => {
-    const {container, debug} = renderScrollbar(undefined, undefined, 300, 300);
-    debug();
+    const {container} = renderScrollbar(undefined, undefined, 300, 300);
     const vScrollbar = container.querySelector('.scrollbar-vertical-track');
     const hScrollbar = container.querySelector('.scrollbar-horizontal-track');
     const vThumb = container.querySelector('.vertical-thumb');
