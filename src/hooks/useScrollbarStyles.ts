@@ -15,7 +15,6 @@ export const useScrollbarStyles = (styles: ScrollbarStyles) => {
     scrollbarTrackColor = 'transparent',
   } = styles;
 
-
   return {
     scrollbarRadius,
     scrollbarTrackColor,

@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-import { useScrollbarStatus, useScrollbarSize, useMouseEventHandlers, useScrollHandlers, useScrollbarStyles } from '../hooks';
+import {
+  useScrollbarStatus,
+  useScrollbarSize,
+  useMouseEventHandlers,
+  useScrollHandlers,
+  useScrollbarStyles,
+} from '../hooks';
 
 import '../scrollbar.css';
 
@@ -80,19 +86,13 @@ export const Scrollbar: React.FC<ScrollbarProps> = (props) => {
     innerRef,
   });
 
-  const {
-    scaleY,
-    scaleX,
-    scrollHeight,
-    scrollWidth,
-    outerRect,
-    innerRect,
-  } = useScrollbarSize({
-    width,
-    height,
-    innerRef,
-    outerRef,
-  });
+  const { scaleY, scaleX, scrollHeight, scrollWidth, outerRect, innerRect } =
+    useScrollbarSize({
+      width,
+      height,
+      innerRef,
+      outerRef,
+    });
 
   const {
     handleVerticalThumbMouseDown,
@@ -108,7 +108,9 @@ export const Scrollbar: React.FC<ScrollbarProps> = (props) => {
     isRtl,
   });
 
-  const { translateY, translateX, handleScroll } = useScrollHandlers({ outerRect });
+  const { translateY, translateX, handleScroll } = useScrollHandlers({
+    outerRect,
+  });
 
   const [trackSize, setTrackSize] = useState<number>(0);
 

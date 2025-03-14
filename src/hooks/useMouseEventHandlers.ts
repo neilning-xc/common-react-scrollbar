@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 interface MouseEventHandlers {
   outerRef: React.RefObject<HTMLElement | null>;
@@ -10,7 +10,7 @@ interface MouseEventHandlers {
 }
 
 export const useMouseEventHandlers = (data: MouseEventHandlers) => {
-  const {outerRef, scaleY, scaleX, outerRect, innerRect, isRtl} = data;
+  const { outerRef, scaleY, scaleX, outerRect, innerRect, isRtl } = data;
 
   const verticalMouseDown = useRef<boolean>(false);
   const horizontalMouseDown = useRef<boolean>(false);
@@ -36,16 +36,16 @@ export const useMouseEventHandlers = (data: MouseEventHandlers) => {
   };
 
   const handleHorizontalThumbMouseDown = (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      horizontalMouseDown.current = true;
-      startX.current = e.clientX;
-      if (outerRef.current) {
-        startScrollLeft.current = outerRef.current.scrollLeft;
-      }
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    };
+    e.preventDefault();
+    e.stopPropagation();
+    horizontalMouseDown.current = true;
+    startX.current = e.clientX;
+    if (outerRef.current) {
+      startScrollLeft.current = outerRef.current.scrollLeft;
+    }
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
 
   const handleMouseMove = (e: MouseEvent) => {
     e.preventDefault();
@@ -84,34 +84,33 @@ export const useMouseEventHandlers = (data: MouseEventHandlers) => {
   };
 
   // click on the track
-    const handleVerticalTrackMouseDown = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      const { height: outerH } = outerRect.current;
-      const { height: innerH } = innerRect.current;
-      // get the offset of the click point from the top of the track
-      const offset = e.clientY - e.currentTarget.getBoundingClientRect().top;
-      const scrollTop = (offset / outerH) * innerH - outerH / 2;
-      if (outerRef.current) {
-        outerRef.current.scrollTop = scrollTop;
-      }
-    };
+  const handleVerticalTrackMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { height: outerH } = outerRect.current;
+    const { height: innerH } = innerRect.current;
+    // get the offset of the click point from the top of the track
+    const offset = e.clientY - e.currentTarget.getBoundingClientRect().top;
+    const scrollTop = (offset / outerH) * innerH - outerH / 2;
+    if (outerRef.current) {
+      outerRef.current.scrollTop = scrollTop;
+    }
+  };
 
-    const handleHorizontalTrackMouseDown = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        const { width: outerW } = outerRect.current;
-        const { width: innerW } = innerRect.current;
-        let offset;
-        if (isRtl) {
-          offset = e.currentTarget.getBoundingClientRect().right - e.clientX;
-        } else {
-          offset = e.clientX - e.currentTarget.getBoundingClientRect().left;
-        }
-        const scrollLeft = (offset / outerW) * innerW - outerW / 2;
-        if (outerRef.current) {
-          outerRef.current.scrollLeft = isRtl ? -scrollLeft : scrollLeft;
-        }
-      };
-
+  const handleHorizontalTrackMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { width: outerW } = outerRect.current;
+    const { width: innerW } = innerRect.current;
+    let offset;
+    if (isRtl) {
+      offset = e.currentTarget.getBoundingClientRect().right - e.clientX;
+    } else {
+      offset = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    }
+    const scrollLeft = (offset / outerW) * innerW - outerW / 2;
+    if (outerRef.current) {
+      outerRef.current.scrollLeft = isRtl ? -scrollLeft : scrollLeft;
+    }
+  };
 
   return {
     handleVerticalThumbMouseDown,

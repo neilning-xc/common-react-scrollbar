@@ -24,36 +24,36 @@ export const useScrollbarSize = (data: ScrollbarSize) => {
   });
 
   useEffect(() => {
-      // calculate the height of the thumb
-      const outer = outerRef.current;
-      const inner = innerRef.current;
-      if (outer && inner) {
-        outerRect.current = {
-          height: outer.clientHeight,
-          width: outer.clientWidth,
-        };
-        innerRect.current = {
-          height: inner.clientHeight,
-          width: inner.clientWidth,
-        };
-  
-        // setTrackSize(outerRect.current.height - trackWidth * 2);
-        // calculate the height and width of the thumb with percentage
-        setScrollHeight((outer.clientHeight / inner.clientHeight) * 100 + '%');
-        const thumbHeight =
-          (outer.clientHeight / inner.clientHeight) * outer.clientHeight;
-        scaleY.current =
-          (innerRect.current.height - outerRect.current.height) /
-          (outerRect.current.height - thumbHeight);
-  
-        setScrollWidth((outer.clientWidth / inner.clientWidth) * 100 + '%');
-        const thumbWidth =
-          (outer.clientWidth / inner.clientWidth) * outer.clientWidth;
-        scaleX.current =
-          (innerRect.current.width - outerRect.current.width) /
-          (outerRect.current.width - thumbWidth);
-      }
-    }, [outerRef.current, innerRef.current, width, height]);
+    // calculate the height of the thumb
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (outer && inner) {
+      outerRect.current = {
+        height: outer.clientHeight,
+        width: outer.clientWidth,
+      };
+      innerRect.current = {
+        height: inner.clientHeight,
+        width: inner.clientWidth,
+      };
+
+      // setTrackSize(outerRect.current.height - trackWidth * 2);
+      // calculate the height and width of the thumb with percentage
+      setScrollHeight((outer.clientHeight / inner.clientHeight) * 100 + '%');
+      const thumbHeight =
+        (outer.clientHeight / inner.clientHeight) * outer.clientHeight;
+      scaleY.current =
+        (innerRect.current.height - outerRect.current.height) /
+        (outerRect.current.height - thumbHeight);
+
+      setScrollWidth((outer.clientWidth / inner.clientWidth) * 100 + '%');
+      const thumbWidth =
+        (outer.clientWidth / inner.clientWidth) * outer.clientWidth;
+      scaleX.current =
+        (innerRect.current.width - outerRect.current.width) /
+        (outerRect.current.width - thumbWidth);
+    }
+  }, [outerRef.current, innerRef.current, width, height]);
 
   return {
     scrollHeight,
