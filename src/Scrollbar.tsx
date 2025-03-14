@@ -2,7 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 
 import './scrollbar.css';
 
-interface ScrollbarProps {
+interface CustomStyle {
+  scrollbarWidth?: number;
+  scrollbarColor?: string;
+  scrollbarGutter?: number;
+  scrollbarTrackColor?: string;
+  scrollbarRadius?: number | string;
+}
+
+interface ScrollbarProps extends CustomStyle {
   children?: React.ReactNode;
   height?: number;
   width?: number;
@@ -35,14 +43,28 @@ const getScrollBarWidth: () => number = () => {
   return widthNoScroll - widthWithScroll;
 };
 
-export const Scrollbar: React.FC<ScrollbarProps> = ({
-  children,
-  width,
-  height,
-  outerRef: outerRefProps,
-  innerRef: innerRefProps,
-  dir,
-}) => {
+export const Scrollbar: React.FC<ScrollbarProps> = (props) => {
+  const {
+    children,
+    width,
+    height,
+    outerRef: outerRefProps,
+    innerRef: innerRefProps,
+    dir,
+    ...styles
+  } = props;
+
+  const {
+    scrollbarWidth = 4,
+    scrollbarColor = '#ced2d9',
+    scrollbarGutter = 2,
+    scrollbarRadius = 4,
+    scrollbarTrackColor = 'transparent',
+  } = styles;
+  const trackWidth = scrollbarWidth + scrollbarGutter * 2;
+  const thumbWidth = scrollbarWidth;
+  const trackPadding = scrollbarGutter;
+
   const outerRef = useRef<HTMLDivElement>(
     outerRefProps ? outerRefProps.current : null,
   );
@@ -245,6 +267,11 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
       {shouldShowVerticval && (
         <div
           className="scrollbar-vertical-track"
+          style={{
+            width: trackWidth,
+            padding: `0 ${trackPadding}px`,
+            background: scrollbarTrackColor,
+          }}
           onMouseDown={handleVerticalTrackMouseDown}
         >
           <div
@@ -253,6 +280,9 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
             style={{
               height: scrollHeight,
               transform: `translateY(${translateY})`,
+              background: scrollbarColor,
+              width: thumbWidth,
+              borderRadius: scrollbarRadius,
             }}
           />
         </div>
@@ -260,6 +290,11 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
 
       {shouldShowHorizontal && (
         <div
+          style={{
+            height: trackWidth,
+            padding: `${trackPadding}px 0`,
+            background: scrollbarTrackColor,
+          }}
           className="scrollbar-horizontal-track"
           onMouseDown={handleHorizontalTrackMouseDown}
         >
@@ -269,6 +304,9 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
             style={{
               width: scrollWidth,
               transform: `translateX(${translateX})`,
+              background: scrollbarColor,
+              height: thumbWidth,
+              borderRadius: scrollbarRadius,
             }}
           />
         </div>
