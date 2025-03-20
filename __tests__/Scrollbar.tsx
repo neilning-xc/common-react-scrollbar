@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { Scrollbar } from '../src/Scrollbar';
+import Scrollbar from '../src';
 
 const renderScrollbar = (width: number | undefined, height: number | undefined, clientWidth: number, clientHeight: number, dir?: 'rtl' | 'ltr') => {
   const mockInnerDiv = document.createElement('div');

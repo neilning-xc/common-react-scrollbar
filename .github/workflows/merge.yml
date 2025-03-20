@@ -1,9 +1,14 @@
 name: Merge to Master
 
 on:
+  push:
+    branches:
+      - '**'
+
   pull_request:
     types:
       - closed
+      - opened
 
 jobs:
   test:
