@@ -112,8 +112,6 @@ export const Scrollbar: React.FC<ScrollbarProps> = (props) => {
     outerRect,
   });
 
-  const [trackSize, setTrackSize] = useState<number>(0);
-
   const [marginX, setMarginX] = useState<number>(0);
   const scrollBarWidth = useRef<number>(0);
 

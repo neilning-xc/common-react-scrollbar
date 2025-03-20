@@ -66,7 +66,7 @@ export const useMouseEventHandlers = (data: MouseEventHandlers) => {
     }
   };
 
-  const handleMouseUp = (e: MouseEvent) => {
+  const handleMouseUp = () => {
     if (verticalMouseDown.current) {
       verticalMouseDown.current = false;
       startY.current = 0;

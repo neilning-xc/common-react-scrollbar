@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface ScrollHandlers {
   outerRect: React.RefObject<{ height: number; width: number }>;
