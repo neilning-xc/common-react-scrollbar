@@ -12,6 +12,11 @@ A common React scrollbar component that supports both vertical and horizontal sc
 - `height` (number): The height of the scrollbar container.
 - `width` (number): The width of the scrollbar container.
 - `dir` ('rtl' | 'ltr'): The direction of the scrollbar. Default is 'ltr'. Compatible with right-to-left languages like Arabic and Hebrew.
+- `scrollbarWidth` (number): The width of the scrollbar. Default is 4.
+- `scrollbarColor` (string): The color of the scrollbar. Default is '#ced2d9'.
+- `scrollbarGutter` (number): The space between the scrollbar and the content. Default is 2.
+- `scrollbarRadius` (number): The radius of the scrollbar. Default is 4.
+= `scrollbarTrackColor` (string): The color of the scrollbar track. Default is 'transparent'.
 
 ## Example
 

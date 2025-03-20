@@ -1,3 +1,3 @@
-import { Scrollbar } from './Scrollbar';
+import { Scrollbar } from './components/Scrollbar';
 
 export default Scrollbar;
